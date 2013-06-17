@@ -55,6 +55,23 @@
 	return newDate;	
 }
 
+//MY ADDITION 15 minute intervals
++ (NSDate *) dateWithQuarterHoursFromNow: (NSInteger) dQuarterHours
+{
+    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] +(D_HOUR/4) * dQuarterHours;
+    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
+    return newDate;
+}
+
++ (NSDate *) dateWithQuarterHoursBeforeNow: (NSInteger) dQuarterHours
+{
+    NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] -(D_HOUR/4) * dQuarterHours;
+    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
+    return newDate;
+  
+}
+//end MY ADDITION
+
 + (NSDate *) dateWithMinutesFromNow: (NSInteger) dMinutes
 {
 	NSTimeInterval aTimeInterval = [[NSDate date] timeIntervalSinceReferenceDate] + D_MINUTE * dMinutes;
@@ -94,6 +111,39 @@
 {
 	return [self isEqualToDateIgnoringTime:[NSDate dateYesterday]];
 }
+
+//MY ADDITION is midnight/midday today/tomorrow/yesterday CHECK ???
+- (BOOL) isMiddayToday
+{
+    return [(self isToday) + (12 * D_HOUR)];
+}
+
+- (BOOL) isMidnightToday
+{
+    return [(self isToday) + (24 * D_HOUR)];
+}
+
+- (BOOL) isMiddayTomorrow
+{
+    return [(self isTomorrow) + (12 * D_HOUR)];
+}
+
+- (BOOL) isMidnightTomorrow
+{
+    return [(self isTomorrow) + (24 * D_HOUR)];
+}
+
+- (BOOL) isMiddayYesterday
+{
+    return [(self isYesterday) + (12 * D_HOUR)];
+}
+
+- (BOOL) isMidnightYesterday
+{
+    return [(self isYesterday) + (24 * D_HOUR)];
+}
+
+//end MY ADDITION CHECK ???
 
 // This hard codes the assumption that a week is 7 days
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate
@@ -140,6 +190,22 @@
 {
     return [self isSameMonthAsDate:[NSDate date]];
 }
+
+//MY ADDITION next month and last month
+- (BOOL) isNextMonth: (NSDate *) aDate
+{
+    NSDateComponents *components1 = [CURRENT_CALENDAR components:NSMonthCalendarUnit fromDate:self];
+    NSDateComponents *components2 = [CURRENT_CALENDAR components:NSMonthCalendarUnit fromDate:aDate];
+    return (components1.month == (components2.month + 1));
+}
+
+- (BOOL) isLastMonth: (NSDate *) aDate
+{
+    NSDateComponents *components1 = [CURRENT_CALENDAR components:NSMonthCalendarUnit fromDate:self];
+    NSDateComponents *components2 = [CURRENT_CALENDAR components:NSMonthCalendarUnit fromDate:aDate];
+    return (components1.month == (components2.month - 1));
+}
+//end MY ADDITION
 
 - (BOOL) isSameYearAsDate: (NSDate *) aDate
 {
@@ -234,6 +300,20 @@
 	return [self dateByAddingHours: (dHours * -1)];
 }
 
+//MY ADDITION adjusting by 15 minute intervals
+- (NSDate *) dateByAddingQuarterHours: (NSInteger) dQuarterHours
+{
+    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + (D_HOUR/4) * dQuarterHours;
+    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
+    return newDate;
+}
+
+- (NSDate *) dateBySubtractingQuarterHours: (NSInteger) dQuarterHours
+{
+    return [self dateByAddingQuarterHours: (dQuarterHours)* -1];
+}
+//end MY ADDITION
+
 - (NSDate *) dateByAddingMinutes: (NSInteger) dMinutes
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_MINUTE * dMinutes;
@@ -274,6 +354,20 @@
 	NSTimeInterval ti = [aDate timeIntervalSinceDate:self];
 	return (NSInteger) (ti / D_MINUTE);
 }
+
+//MY ADDITION  retrieving 15 minute intevrals
+- (NSInteger) quarterHoursAfterDate: (NSDate *) aDate
+{
+    NSTimeInterval ti = [self timeIntervalSinceDate: aDate];
+    return (NSInteger) (ti / (D_HOUR/4));
+}
+
+- (NSInteger) quarterHoursBeforeDate: (NSDate *) aDate
+{
+    NSTimeInterval ti [self timeIntervalSinceDate: aDate];
+    return (NSInteger) (ti / (D_HOUR/4));
+}
+//end MY ADDITION
 
 - (NSInteger) hoursAfterDate: (NSDate *) aDate
 {

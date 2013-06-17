@@ -21,6 +21,12 @@
 + (NSDate *) dateWithDaysBeforeNow: (NSInteger) days;
 + (NSDate *) dateWithHoursFromNow: (NSInteger) dHours;
 + (NSDate *) dateWithHoursBeforeNow: (NSInteger) dHours;
+
+//MY ADDITION 15 minute intervals
++ (NSDate *) dateWithQuarterHoursFromNow: (NSInteger) dQuarterHours;
++ (NSDate *) dateWithQuarterHoursBeforeNow: (NSInteger) dQuarterHours;
+//end MY ADDITION
+
 + (NSDate *) dateWithMinutesFromNow: (NSInteger) dMinutes;
 + (NSDate *) dateWithMinutesBeforeNow: (NSInteger) dMinutes;
 
@@ -29,12 +35,28 @@
 - (BOOL) isToday;
 - (BOOL) isTomorrow;
 - (BOOL) isYesterday;
+
+//MY ADDITION is midnight/midday today/tomorrow/yesterday
+- (BOOL) isMiddayToday;
+- (BOOL) isMidnightToday;
+- (BOOL) isMiddayTomorrow;
+- (BOOL) isMidnightTomorrow;
+- (BOOL) isMiddayYesterday;
+- (BOOL) isMidnightYesterday;
+//end MY ADDITION (need to double check methods)
+
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate;
 - (BOOL) isThisWeek;
 - (BOOL) isNextWeek;
 - (BOOL) isLastWeek;
 - (BOOL) isSameMonthAsDate: (NSDate *) aDate; 
 - (BOOL) isThisMonth;
+
+//MY ADDITION next month and last month
+- (BOOL) isNextMonth;
+- (BOOL) isLastMonth;
+//end MY ADDITION
+
 - (BOOL) isSameYearAsDate: (NSDate *) aDate;
 - (BOOL) isThisYear;
 - (BOOL) isNextYear;
@@ -53,6 +75,12 @@
 - (NSDate *) dateBySubtractingDays: (NSInteger) dDays;
 - (NSDate *) dateByAddingHours: (NSInteger) dHours;
 - (NSDate *) dateBySubtractingHours: (NSInteger) dHours;
+
+//MY ADDITION 15 minute adjustments
+- (NSDate *) dateByAddingQuarterHours: (NSInteger) dQuarterHours;
+- (NSDate *) dateBySubtractingQuarterHours: (NSInteger) dQuarterHours;
+//end MY ADDITION
+
 - (NSDate *) dateByAddingMinutes: (NSInteger) dMinutes;
 - (NSDate *) dateBySubtractingMinutes: (NSInteger) dMinutes;
 - (NSDate *) dateAtStartOfDay;
@@ -60,6 +88,12 @@
 // Retrieving intervals
 - (NSInteger) minutesAfterDate: (NSDate *) aDate;
 - (NSInteger) minutesBeforeDate: (NSDate *) aDate;
+
+//MY ADDITION retrieveing 15 minute intervals
+- (NSInteger) quarterHoursAfterDate: (NSDate *) aDate;
+- (NSInteger) quarterHoursBeforeDate: (NSDate *) aDate;
+//end MY ADDITION
+
 - (NSInteger) hoursAfterDate: (NSDate *) aDate;
 - (NSInteger) hoursBeforeDate: (NSDate *) aDate;
 - (NSInteger) daysAfterDate: (NSDate *) aDate;
@@ -69,6 +103,7 @@
 // Decomposing dates
 @property (readonly) NSInteger nearestHour;
 @property (readonly) NSInteger hour;
+@property (readonly) NSInteger quarterHours;
 @property (readonly) NSInteger minute;
 @property (readonly) NSInteger seconds;
 @property (readonly) NSInteger day;
