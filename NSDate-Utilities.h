@@ -38,8 +38,24 @@
 
 //MY ADDITION
 //Comparing times
-- (NSInteger) isMidday: (NSInteger) aTime;
-- (NSInteger) isMidnight: (NSInteger) aTime;
+- (NSInteger) isMidday: (NSDate *) aDate;
+- (NSInteger) isMidnight: (NSDate *) aDate;
+//need to fix the methods in .m file
+/*- (BOOL) isEarlierThanTime: (NSInteger) aTime;
+- (BOOL) isLaterThanTime: (NSInteger) aTime;*/
+- (BOOL) isEqualToTimeIgnoringDate: (NSDate *) aDate;
+
+//Comparing Date and Time
+- (BOOL) isEqualToDateAndTime: (NSDate *) aDate;
+- (BOOL) isSameTimeToday;
+- (BOOL) isSameTimeTomorrow;
+- (BOOL) isSameTimeYesterday;
+- (BOOL) isMiddayToday;
+- (BOOL) isMidnightToday;
+- (BOOL) isMiddayTomorrow;
+- (BOOL) isMidnightTomorrow;
+- (BOOL) isMiddayYesterday;
+- (BOOL) isMidnightYesterday;
 //end MY ADDITION
 
 // Comparing dates

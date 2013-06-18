@@ -100,16 +100,136 @@
 
 //MY ADDITION
 #pragma mark - Comparing Times
-//not sure if correct ??
-- (NSInteger) isMidday: (NSInteger) aTime
+- (NSInteger) isMidday: (NSDate *) aDate
 {
-    return (D_HOUR * 12);
+    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate: aDate];
+    return ((components.hour == 12.0) &&
+            (components.minute == 0.0) &&
+            (components.second == 0.0));
 }
 
-- (NSInteger) isMidnight: (NSInteger) aTime
+- (NSInteger) isMidnight: (NSDate *) aDate
 {
-    return (D_HOUR * 24);
+    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate: aDate];
+    return ((components.hour == 24.0) &&
+            (components.minute == 0.0) &&
+            (components.second == 0.0));
+
 }
+//what is theTime? NEED TO FIX
+/*
+- (BOOL) isEarlierThanTime: (NSInteger) aTime
+{
+    return ([theTime compare:aTime] == NSOrderedAscending);
+}
+- (BOOL) isLaterThanTime: (NSInteger) aTime
+{
+    return ([theTime compare:aTime] == NSOrderedDescending);
+}*/
+- (BOOL) isEqualToTimeIgnoringDate: (NSDate *) aDate
+{
+    NSDateComponents *components1 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate: self];
+    NSDateComponents *components2 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate];
+    return ((components1.hour == components2.hour) &&
+            (components1.minute == components2.minute) &&
+            (components1.second == components2.second));
+}
+
+#pragma mark - Comparing date and time
+
+- (BOOL) isEqualToDateAndTime:(NSDate *)aDate
+{
+    NSDateComponents *components1 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate: self];
+    NSDateComponents *components2 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:aDate];
+    return ((components1.year == components2.year) &&
+			(components1.month == components2.month) &&
+			(components1.day == components2.day) &&
+            (components1.hour == components2.hour) &&
+            (components1.minute == components2.minute) &&
+            (components1.second == components2.second));
+}
+
+- (BOOL) isSameTimeToday
+{
+    return [self isEqualToDateAndTime: [NSDate date]];
+}
+
+- (BOOL) isSameTimeTomorrow
+{
+    return [self isEqualToDateAndTime: [NSDate dateTomorrow]];
+}
+
+- (BOOL) isSameTimeYesterday
+{
+    return [self isEqualToDateAndTime: [NSDate dateYesterday]];
+}
+
+- (BOOL) isMiddayToday
+{
+    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate: [NSDate date]];
+    return ((components.year) &&
+			(components.month) &&
+			(components.day) &&
+            (components.hour == 12.0) &&
+            (components.minute == 0.0) &&
+            (components.second == 0.0));
+}
+
+- (BOOL) isMidnightToday
+{
+    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate: [NSDate date]];
+    return ((components.year) &&
+			(components.month) &&
+			(components.day) &&
+            (components.hour == 24.0) &&
+            (components.minute == 0.0) &&
+            (components.second == 0.0));
+}
+
+- (BOOL) isMiddayTomorrow
+{
+    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate: [NSDate dateTomorrow]];
+    return ((components.year) &&
+			(components.month) &&
+			(components.day) &&
+            (components.hour == 12.0) &&
+            (components.minute == 0.0) &&
+            (components.second == 0.0));
+}
+
+- (BOOL) isMidnightTomorrow
+{
+    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate: [NSDate dateTomorrow]];
+    return ((components.year) &&
+			(components.month) &&
+			(components.day) &&
+            (components.hour == 24.0) &&
+            (components.minute == 0.0) &&
+            (components.second == 0.0));
+}
+
+- (BOOL) isMiddayYesterday
+{
+    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate: [NSDate dateYesterday]];
+    return ((components.year) &&
+			(components.month) &&
+			(components.day) &&
+            (components.hour == 12.0) &&
+            (components.minute == 0.0) &&
+            (components.second == 0.0));
+}
+
+- (BOOL) isMidnightYesterday
+{
+    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate: [NSDate dateYesterday]];
+    return ((components.year) &&
+			(components.month) &&
+			(components.day) &&
+            (components.hour == 24.0) &&
+            (components.minute == 0.0) &&
+            (components.second == 0.0));
+}
+
 //end MY ADDITION
 
 #pragma mark Comparing Dates
