@@ -17,6 +17,12 @@
 // Relative dates from the current date
 + (NSDate *) dateTomorrow;
 + (NSDate *) dateYesterday;
+
+//MY ADDITION - years from/before now
++ (NSDate *) dateWithYearsFromNow: (NSInteger) years;
++ (NSDate *) dateWithYearsBeforeNow: (NSInteger) years;
+//end MY ADDITION
+
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days;
 + (NSDate *) dateWithDaysBeforeNow: (NSInteger) days;
 + (NSDate *) dateWithHoursFromNow: (NSInteger) dHours;
@@ -30,21 +36,17 @@
 + (NSDate *) dateWithMinutesFromNow: (NSInteger) dMinutes;
 + (NSDate *) dateWithMinutesBeforeNow: (NSInteger) dMinutes;
 
+//MY ADDITION
+//Comparing times
+- (NSInteger) isMidday: (NSInteger) aTime;
+- (NSInteger) isMidnight: (NSInteger) aTime;
+//end MY ADDITION
+
 // Comparing dates
 - (BOOL) isEqualToDateIgnoringTime: (NSDate *) aDate;
 - (BOOL) isToday;
 - (BOOL) isTomorrow;
 - (BOOL) isYesterday;
-
-//MY ADDITION is midnight/midday today/tomorrow/yesterday
-- (BOOL) isMiddayToday;
-- (BOOL) isMidnightToday;
-- (BOOL) isMiddayTomorrow;
-- (BOOL) isMidnightTomorrow;
-- (BOOL) isMiddayYesterday;
-- (BOOL) isMidnightYesterday;
-//end MY ADDITION (need to double check methods)
-
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate;
 - (BOOL) isThisWeek;
 - (BOOL) isNextWeek;
@@ -71,6 +73,12 @@
 - (BOOL) isTypicallyWeekend;
 
 // Adjusting dates
+
+//MY ADDITION adjusting by years
+- (NSDate *) dateByAddingYears: (NSInteger) dYears;
+- (NSDate *) dateBySubtractingYears: (NSInteger) dYears;
+//end MY ADDITION
+
 - (NSDate *) dateByAddingDays: (NSInteger) dDays;
 - (NSDate *) dateBySubtractingDays: (NSInteger) dDays;
 - (NSDate *) dateByAddingHours: (NSInteger) dHours;
@@ -103,7 +111,11 @@
 // Decomposing dates
 @property (readonly) NSInteger nearestHour;
 @property (readonly) NSInteger hour;
+
+//MY ADDITION decomposing dates 15 minute intervals
 @property (readonly) NSInteger quarterHours;
+//end MY ADDITION
+
 @property (readonly) NSInteger minute;
 @property (readonly) NSInteger seconds;
 @property (readonly) NSInteger day;

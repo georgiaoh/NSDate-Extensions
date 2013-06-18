@@ -19,6 +19,18 @@
 
 #pragma mark Relative Dates
 
+//MY ADDITION years from/before now
++ (NSDate *) dateWithYearsFromNow: (NSInteger) years
+{
+    return [[NSDate date] dateByAddingYears:years];
+}
+
++ (NSDate *) dateWithYearsBeforeNow: (NSInteger) years
+{
+    return [[NSDate date] dateBySubtractingYears:years];
+}
+//end MY ADDITION
+
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days
 {
     // Thanks, Jim Morrison
@@ -86,6 +98,20 @@
 	return newDate;		
 }
 
+//MY ADDITION
+#pragma mark - Comparing Times
+//not sure if correct ??
+- (NSInteger) isMidday: (NSInteger) aTime
+{
+    return (D_HOUR * 12);
+}
+
+- (NSInteger) isMidnight: (NSInteger) aTime
+{
+    return (D_HOUR * 24);
+}
+//end MY ADDITION
+
 #pragma mark Comparing Dates
 
 - (BOOL) isEqualToDateIgnoringTime: (NSDate *) aDate
@@ -111,39 +137,6 @@
 {
 	return [self isEqualToDateIgnoringTime:[NSDate dateYesterday]];
 }
-
-//MY ADDITION is midnight/midday today/tomorrow/yesterday CHECK ???
-- (BOOL) isMiddayToday
-{
-    return [(self isToday) + (12 * D_HOUR)];
-}
-
-- (BOOL) isMidnightToday
-{
-    return [(self isToday) + (24 * D_HOUR)];
-}
-
-- (BOOL) isMiddayTomorrow
-{
-    return [(self isTomorrow) + (12 * D_HOUR)];
-}
-
-- (BOOL) isMidnightTomorrow
-{
-    return [(self isTomorrow) + (24 * D_HOUR)];
-}
-
-- (BOOL) isMiddayYesterday
-{
-    return [(self isYesterday) + (12 * D_HOUR)];
-}
-
-- (BOOL) isMidnightYesterday
-{
-    return [(self isYesterday) + (24 * D_HOUR)];
-}
-
-//end MY ADDITION CHECK ???
 
 // This hard codes the assumption that a week is 7 days
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate
@@ -192,17 +185,17 @@
 }
 
 //MY ADDITION next month and last month
-- (BOOL) isNextMonth: (NSDate *) aDate
+- (BOOL) isNextMonth
 {
     NSDateComponents *components1 = [CURRENT_CALENDAR components:NSMonthCalendarUnit fromDate:self];
-    NSDateComponents *components2 = [CURRENT_CALENDAR components:NSMonthCalendarUnit fromDate:aDate];
+    NSDateComponents *components2 = [CURRENT_CALENDAR components:NSMonthCalendarUnit fromDate:[NSDate date]];
     return (components1.month == (components2.month + 1));
 }
 
-- (BOOL) isLastMonth: (NSDate *) aDate
+- (BOOL) isLastMonth
 {
     NSDateComponents *components1 = [CURRENT_CALENDAR components:NSMonthCalendarUnit fromDate:self];
-    NSDateComponents *components2 = [CURRENT_CALENDAR components:NSMonthCalendarUnit fromDate:aDate];
+    NSDateComponents *components2 = [CURRENT_CALENDAR components:NSMonthCalendarUnit fromDate:[NSDate date]];
     return (components1.month == (components2.month - 1));
 }
 //end MY ADDITION
@@ -258,7 +251,6 @@
     return ([self isEarlierThanDate:[NSDate date]]);
 }
 
-
 #pragma mark Roles
 - (BOOL) isTypicallyWeekend
 {
@@ -275,6 +267,19 @@
 }
 
 #pragma mark Adjusting Dates
+                              
+//MY ADDITION adjusting by years
+- (NSDate *) dateByAddingYears: (NSInteger) dYears
+{
+    NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_DAY*365*dYears;
+    NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
+    return newDate;
+}
+- (NSDate *) dateBySubtractingYears: (NSInteger) dYears
+{
+    return [self dateByAddingYears: (dYears * -1)];
+}
+//end MY ADDITION
 
 - (NSDate *) dateByAddingDays: (NSInteger) dDays
 {
@@ -364,7 +369,7 @@
 
 - (NSInteger) quarterHoursBeforeDate: (NSDate *) aDate
 {
-    NSTimeInterval ti [self timeIntervalSinceDate: aDate];
+    NSTimeInterval ti = [self timeIntervalSinceDate: aDate];
     return (NSInteger) (ti / (D_HOUR/4));
 }
 //end MY ADDITION
@@ -417,6 +422,14 @@
 	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
 	return components.hour;
 }
+
+//MY ADDITION decomposing dates 15 minute intervals
+- (NSInteger) quarterHours
+{
+    NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
+    return (components.hour)/4;
+}
+//end MY ADDITION
 
 - (NSInteger) minute
 {
